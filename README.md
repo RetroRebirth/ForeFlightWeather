@@ -9,8 +9,10 @@ TODO: insert photo/video
 ## Any notable design decisions you wish to highlight
 
 ## Any references consulted and/or third party libraries used
-### Swift UI tutorials
 - TextField: https://developer.apple.com/documentation/swiftui/textfield
+- List: https://developer.apple.com/documentation/swiftui/list
+- Create dropdown editable TextField: https://stackoverflow.com/questions/73709938/how-to-create-dropdown-with-editable-textfield-in-swiftui
+
 
 ## Known issues
 
