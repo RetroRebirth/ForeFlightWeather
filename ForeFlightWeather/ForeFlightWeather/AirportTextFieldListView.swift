@@ -10,7 +10,7 @@ import SwiftUI
 public struct AirportTextFieldListView: View {
     @Binding var inputText: String
     @State var dropDownList = [String]()
-    @State var filterList = false
+    @FocusState var filterList:Bool
     
     public init(inputText: Binding<String>, dropDownList: [String]) {
         self._inputText = inputText
@@ -24,13 +24,10 @@ public struct AirportTextFieldListView: View {
                         .padding([.horizontal, .vertical], 15)
                         .autocorrectionDisabled()
                         .autocapitalization(.allCharacters)
-                        .onTapGesture {
-                            filterList = true
-                        }
+                        .focused($filterList)
                         .onSubmit {
-                            filterList = false
                             // TODO validate before adding to list
-                            if !dropDownList.contains(inputText.uppercased()) {
+                            if !inputText.isEmpty && !dropDownList.contains(inputText.uppercased()) {
                                 dropDownList.insert(inputText.uppercased(), at: 0)
                             }
                         }
@@ -47,7 +44,6 @@ public struct AirportTextFieldListView: View {
                         Text("\(airport)")
                             .onTapGesture {
                                 inputText = "\(airport)"
-                                filterList = false
                             }
                     }
                 }
