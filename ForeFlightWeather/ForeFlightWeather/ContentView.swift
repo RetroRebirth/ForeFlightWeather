@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            AirportTextFieldList(inputText: $airport, dropDownList: airports)
+            AirportTextFieldListView(inputText: $airport, dropDownList: airports)
         }
         .padding()
     }
