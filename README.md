@@ -5,8 +5,10 @@ TODO: insert photo/video
 
 ## How long was spent on the project
 - Started around 9am on April 25th 2024.
+- Took at break at 2pm on April 25th 2024 to run errands. 
 
 ## Any notable design decisions you wish to highlight
+- The JSON returned from https://qa.foreflight.com/weather/report never contained values for `weather` in my testing. Therefore, I focused the "Details View" on displaying the date issued, latitude, longitude, elevation feet, and temperature which seemed to be consistently provided.
 
 ## Any references consulted and/or third party libraries used
 - TextField: https://developer.apple.com/documentation/swiftui/textfield

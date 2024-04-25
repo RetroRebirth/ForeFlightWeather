@@ -6,7 +6,7 @@
 import Foundation
 
 // MARK: - Weather
-struct Weather: Codable {
+public struct Weather: Codable {
     let report: Report
 }
 
@@ -27,33 +27,19 @@ struct Conditions: Codable {
     let pressureHg, pressureHpa: Double
     let reportedAsHpa: Bool
     let densityAltitudeFt, relativeHumidity: Int
-    let flightRules: FlightRules
+    let flightRules: String
     let cloudLayers, cloudLayersV2: [CloudLayer]
     let weather: [JSONAny]
     let visibility: ConditionsVisibility
-    let wind: Wind
     let remarks: Remarks
 }
 
 // MARK: - CloudLayer
 struct CloudLayer: Codable {
-    let coverage: Coverage
+    let coverage: String
     let altitudeFt: Int
     let ceiling: Bool
     let altitudeQualifier: Int?
-}
-
-enum Coverage: String, Codable {
-    case bkn = "bkn"
-    case clr = "clr"
-    case few = "few"
-    case sct = "sct"
-    case skc = "skc"
-}
-
-enum FlightRules: String, Codable {
-    case mvfr = "mvfr"
-    case vfr = "vfr"
 }
 
 // MARK: - Remarks
@@ -72,15 +58,7 @@ struct WeatherBeginEndsClass: Codable {
 
 // MARK: - ConditionsVisibility
 struct ConditionsVisibility: Codable {
-    let distanceSm, prevailingVisSm: Int
-}
-
-// MARK: - Wind
-struct Wind: Codable {
-    let speedKts: Double
-    let direction, from: Int?
-    let variable: Bool
-    let gustSpeedKts: Int?
+    let distanceSm, prevailingVisSm: Double
 }
 
 // MARK: - ReportForecast
@@ -99,11 +77,10 @@ struct PurpleCondition: Codable {
     let dateIssued: String
     let lat, lon: Double
     let elevationFt, relativeHumidity: Int
-    let flightRules: FlightRules
+    let flightRules: String
     let cloudLayers, cloudLayersV2: [CloudLayer]
     let weather: [JSONAny]
     let visibility: PurpleVisibility
-    let wind: Wind
     let period: Period
 }
 
@@ -114,7 +91,7 @@ struct Period: Codable {
 
 // MARK: - PurpleVisibility
 struct PurpleVisibility: Codable {
-    let distanceSm, distanceQualifier, prevailingVisSm, prevailingVisDistanceQualifier: Int
+    let distanceSm, prevailingVisSm: Double
 }
 
 // MARK: - MOS
@@ -140,18 +117,17 @@ struct MOSForecast: Codable {
 struct FluffyCondition: Codable {
     let text: String
     let tempMinC, tempMaxC, dewpointMinC, dewpointMaxC: Double
-    let flightRules: FlightRules
+    let flightRules: String
     let cloudLayers, cloudLayersV2: [CloudLayer]
     let weather: [JSONAny]
     let visibility: FluffyVisibility
-    let wind: Wind
     let period: Period
     let turbulence, icing: [JSONAny]
 }
 
 // MARK: - FluffyVisibility
 struct FluffyVisibility: Codable {
-    let distanceSm, distanceQualifier: Int
+    let distanceSm: Double
 }
 
 // MARK: - ReportWindsAloft
