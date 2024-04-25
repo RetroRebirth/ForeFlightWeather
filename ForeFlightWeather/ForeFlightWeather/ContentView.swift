@@ -10,12 +10,11 @@ import SwiftUI
 struct ContentView: View {
     @State private var airport = ""
     private var airports = ["KPWM", "KAUS"]
-    @State private var weather = "raw json here"
+    private let jsonFetcher = JSONFetcher()
     
     var body: some View {
         VStack {
-            AirportTextFieldListView(inputText: $airport, dropDownList: airports)
-            Text(weather)
+            AirportTextFieldListView(inputText: $airport, dropDownList: airports, jsonFetcher: jsonFetcher)
         }
         .padding()
     }

@@ -15,6 +15,8 @@
 		4B4EA88B2BDAA48400B0A9B1 /* ForeFlightWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EA88A2BDAA48400B0A9B1 /* ForeFlightWeatherUITests.swift */; };
 		4B4EA88D2BDAA48400B0A9B1 /* ForeFlightWeatherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EA88C2BDAA48400B0A9B1 /* ForeFlightWeatherUITestsLaunchTests.swift */; };
 		4B4EA89C2BDAAE4900B0A9B1 /* AirportTextFieldListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EA89B2BDAAE4900B0A9B1 /* AirportTextFieldListView.swift */; };
+		4B4EA89E2BDABE5600B0A9B1 /* JSONFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EA89D2BDABE5600B0A9B1 /* JSONFetcher.swift */; };
+		4B4EA8A02BDACF2200B0A9B1 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B4EA89F2BDACF2200B0A9B1 /* Weather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		4B4EA88A2BDAA48400B0A9B1 /* ForeFlightWeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeFlightWeatherUITests.swift; sourceTree = "<group>"; };
 		4B4EA88C2BDAA48400B0A9B1 /* ForeFlightWeatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForeFlightWeatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		4B4EA89B2BDAAE4900B0A9B1 /* AirportTextFieldListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportTextFieldListView.swift; sourceTree = "<group>"; };
+		4B4EA89D2BDABE5600B0A9B1 /* JSONFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONFetcher.swift; sourceTree = "<group>"; };
+		4B4EA89F2BDACF2200B0A9B1 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +104,8 @@
 				4B4EA86E2BDAA48300B0A9B1 /* ForeFlightWeatherApp.swift */,
 				4B4EA8702BDAA48300B0A9B1 /* ContentView.swift */,
 				4B4EA89B2BDAAE4900B0A9B1 /* AirportTextFieldListView.swift */,
+				4B4EA89D2BDABE5600B0A9B1 /* JSONFetcher.swift */,
+				4B4EA89F2BDACF2200B0A9B1 /* Weather.swift */,
 				4B4EA8722BDAA48400B0A9B1 /* Assets.xcassets */,
 				4B4EA8742BDAA48400B0A9B1 /* ForeFlightWeather.entitlements */,
 				4B4EA8752BDAA48400B0A9B1 /* Preview Content */,
@@ -265,6 +271,8 @@
 				4B4EA89C2BDAAE4900B0A9B1 /* AirportTextFieldListView.swift in Sources */,
 				4B4EA8712BDAA48300B0A9B1 /* ContentView.swift in Sources */,
 				4B4EA86F2BDAA48300B0A9B1 /* ForeFlightWeatherApp.swift in Sources */,
+				4B4EA89E2BDABE5600B0A9B1 /* JSONFetcher.swift in Sources */,
+				4B4EA8A02BDACF2200B0A9B1 /* Weather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
