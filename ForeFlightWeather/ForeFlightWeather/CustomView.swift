@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct WeatherView {
-    @State var text: String = ""
-    @State var dateIssued: String = ""
-    @State var lat: Double = 0.0
-    @State var lon: Double = 0.0
-    @State var elevationFt: Int = 0
+    @State var text: String
+    @State var dateIssued: String
+    @State var lat: Double
+    @State var lon: Double
+    @State var elevationFt: Int
 }
 
 public struct CustomView: View {
@@ -21,7 +21,6 @@ public struct CustomView: View {
     @FocusState var filterList: Bool
     private let jsonFetcher: JSONFetcher
     @State private var showAlert = false
-    @State private var showForecast = false
     @State var weatherViews: [WeatherView] = []
     
     public init(inputText: Binding<String>, dropDownList: [String], jsonFetcher: JSONFetcher) {
@@ -37,11 +36,12 @@ public struct CustomView: View {
                     TextField("Select an airport", text: $inputText)
                         .padding([.horizontal, .vertical], 15)
                         .autocorrectionDisabled()
-                    #if os(iOS)
+#if os(iOS)
                         .textInputAutocapitalization(.characters)
-                    #endif
+#endif
                         .focused($filterList)
                         .onSubmit {
+                            if inputText.isEmpty { return }
                             // TODO check if cached before fetching.
                             jsonFetcher.fetchWeatherFor(inputText.uppercased(), onSuccess: {airport, weather in
                                 if !airport.isEmpty && !dropDownList.contains(airport) {
@@ -52,14 +52,12 @@ public struct CustomView: View {
                                 showAlert = true
                             })
                         }
-                    Image(systemName: "chevron.down")
-                        .padding()
                 } .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(lineWidth: 0.5)
                 )
             }
-            List(){
+            List {
                 ForEach(dropDownList, id: \.self) { airport in
                     if !filterList || inputText.isEmpty || airport.contains(inputText.uppercased()) {
                         Text("\(airport)")
@@ -75,37 +73,23 @@ public struct CustomView: View {
                 }
             }
             if !weatherViews.isEmpty {
-                Toggle(isOn: $showForecast) {
-                    Text("Show Forecast")
-                }
-                if showForecast {
-                    TabView {
-                        ForEach(1..<weatherViews.count, id: \.self) { index in
-                            VStack {
-                                Text(weatherViews[index].text).multilineTextAlignment(.center)
-                                Spacer()
-                                Text("Date Issued: \(weatherViews[index].dateIssued)").multilineTextAlignment(.center)
-                                Text("Latitude: \(weatherViews[index].lat)")
-                                Text("Longitude: \(weatherViews[index].lon)")
-                                Text("Elevation Feet: \(weatherViews[index].elevationFt)")
-                            }
-                            .tabItem {
-                                Text("Today + \(index)")
-                            }
-                        }
-                    }
-                } else {
-                    TabView {
-                        VStack {
-                            Text(weatherViews[0].text).multilineTextAlignment(.center)
-                            Spacer()
-                            Text("Date Issued: \(weatherViews[0].dateIssued)").multilineTextAlignment(.center)
-                            Text("Latitude: \(weatherViews[0].lat)")
-                            Text("Longitude: \(weatherViews[0].lon)")
-                            Text("Elevation Feet: \(weatherViews[0].elevationFt)")
+                TabView {
+                    ForEach(0..<weatherViews.count, id: \.self) { index in
+                        List {
+                            Text(weatherViews[index].text).multilineTextAlignment(.center)
+                            Text("Date Issued: \(weatherViews[index].dateIssued)").multilineTextAlignment(.center)
+                            Text("Latitude: \(weatherViews[index].lat)")
+                            Text("Longitude: \(weatherViews[index].lon)")
+                            Text("Elevation Feet: \(weatherViews[index].elevationFt)")
                         }
                         .tabItem {
-                            Text("Today")
+                            if index > 1 {
+                                Text("Today + \(index)")
+                            } else if index == 1 {
+                                Text("Tomorrow")
+                            } else {
+                                Text("Today")
+                            }
                         }
                     }
                 }
