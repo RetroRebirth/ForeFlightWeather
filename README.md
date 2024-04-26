@@ -5,10 +5,11 @@ TODO: insert photo/video
 
 ## How long was spent on the project
 - Started around 9am on April 25th 2024.
-- Took at break at 2pm on April 25th 2024 to run errands. 
+- Took at break at 2pm on April 25th 2024 to run errands.
+- Resumed work at 5pm on April 25th 2024.
 
 ## Any notable design decisions you wish to highlight
-- The JSON returned from https://qa.foreflight.com/weather/report never contained values for `weather` in my testing. Therefore, I focused the "Details View" on displaying the date issued, latitude, longitude, elevation feet, and temperature which seemed to be consistently provided.
+- The JSON returned from https://qa.foreflight.com/weather/report never contained values for `weather` in my testing. Therefore, I focused the "Details View" on displaying the `text`, `dateIssued`, `lat`, `lon`, and `elevationFt` which was consistently provided.
 
 ## Any references consulted and/or third party libraries used
 - TextField: https://developer.apple.com/documentation/swiftui/textfield
@@ -17,6 +18,7 @@ TODO: insert photo/video
 - Simple parsing JSON: https://gist.github.com/kobeumut/b06015646aa0d5f072bfe14e499690ef
 - JSON Viewer: https://jsonviewer.stack.hu
 - JSON Quicktype: https://app.quicktype.io
+- Compiler Warning with ForEach: https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878
 
 ## Known issues
 - "weather" array from JSON response of https://qa.foreflight.com/weather/report/ is always empty.
