@@ -39,7 +39,7 @@ public class JSONFetcher {
                     self.saveDataFor(newWeatherContainer)
                 }
                 onSuccess(newWeatherContainer)
-            } catch let err {
+            } catch {
                 onFailure(airport)
             }
         }.resume()
