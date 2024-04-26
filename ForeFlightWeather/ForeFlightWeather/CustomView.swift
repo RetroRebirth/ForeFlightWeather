@@ -17,17 +17,14 @@ struct WeatherView {
 
 public struct CustomView: View {
     @Binding var inputText: String
-    @State var weatherContainers: [WeatherContainer]
     @FocusState var filterList: Bool
-    private let jsonFetcher: JSONFetcher
+    private var jsonFetcher: JSONFetcher
     @State private var showAlert = false
     @State var weatherViews: [WeatherView] = []
-    @Environment(\.modelContext) private var context
     
     init(inputText: Binding<String>, weatherContainers: [WeatherContainer], jsonFetcher: JSONFetcher) {
         self._inputText = inputText
         self.jsonFetcher = jsonFetcher
-        self._weatherContainers = State(initialValue: weatherContainers)
     }
     
     public var body: some View {
@@ -42,7 +39,7 @@ public struct CustomView: View {
 #endif
                         .focused($filterList)
                         .onAppear {
-                            if weatherContainers.isEmpty {
+                            if jsonFetcher.weatherContainers.isEmpty {
                                 jsonFetcher.fetchWeatherFor("KPWM", onSuccess: onJSONSuccess, onFailure: {_ in })
                                 jsonFetcher.fetchWeatherFor("KAUS", onSuccess: onJSONSuccess, onFailure: {_ in })
                             }
@@ -59,7 +56,7 @@ public struct CustomView: View {
                 )
             }
             List {
-                ForEach(weatherContainers, id: \.self) { weatherContainer in
+                ForEach(jsonFetcher.weatherContainers, id: \.self) { weatherContainer in
                     if !filterList || inputText.isEmpty || weatherContainer.airport.contains(inputText.uppercased()) {
                         Text("\(weatherContainer.airport)")
                             .onTapGesture {
@@ -118,10 +115,7 @@ public struct CustomView: View {
     }
     
     func onJSONSuccess(_ newWeatherContainer: WeatherContainer) {
-        if !weatherContainers.contains(newWeatherContainer) {
-            weatherContainers.insert(newWeatherContainer, at: 0)
-            context.insert(newWeatherContainer)
-        }
-        updateWeatherViewsWith(newWeatherContainer.weather!)
+        let weather: Weather = newWeatherContainer.weather
+        updateWeatherViewsWith(weather)
     }
 }

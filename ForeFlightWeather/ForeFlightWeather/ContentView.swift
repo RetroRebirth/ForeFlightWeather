@@ -11,10 +11,11 @@ import SwiftUI
 struct ContentView: View {
     @State private var airport: String = ""
     @Query var weatherContainers: [WeatherContainer]
-    private let jsonFetcher: JSONFetcher = JSONFetcher()
+    @Environment(\.modelContext) private var context
 
     var body: some View {
         VStack(alignment: .leading) {
+            let jsonFetcher: JSONFetcher = JSONFetcher(weatherContainers: weatherContainers, context: context)
             CustomView(inputText: $airport, weatherContainers: weatherContainers, jsonFetcher: jsonFetcher)
         }
         .padding()
