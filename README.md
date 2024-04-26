@@ -19,6 +19,7 @@ TODO: insert photo/video
 - JSON Viewer: https://jsonviewer.stack.hu
 - JSON Quicktype: https://app.quicktype.io
 - Compiler Warning with ForEach: https://www.hackingwithswift.com/forums/swiftui/compiler-warning-non-constant-range-argument-must-be-an-integer-literal/14878
+- Conditional compilation: https://www.swiftbysundell.com/articles/conditional-compilation-within-swift-expressions/
 
 ## Known issues
 - "weather" array from JSON response of https://qa.foreflight.com/weather/report/ is always empty.
