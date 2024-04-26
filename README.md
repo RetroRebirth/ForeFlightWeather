@@ -56,4 +56,4 @@ Overall: About 14 hours.
 
 ## Video demo
 
-![Video demo](demo.mov)
+demo.mov
