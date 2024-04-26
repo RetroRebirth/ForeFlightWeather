@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         VStack(alignment: .leading) {
             let jsonFetcher: JSONFetcher = JSONFetcher(weatherContainers: weatherContainers, context: context)
-            CustomView(inputText: $airport, weatherContainers: weatherContainers, jsonFetcher: jsonFetcher)
+            CustomView(inputText: $airport, jsonFetcher: jsonFetcher)
         }
         .padding()
     }

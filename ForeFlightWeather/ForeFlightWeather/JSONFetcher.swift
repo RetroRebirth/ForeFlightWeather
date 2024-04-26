@@ -28,22 +28,24 @@ public class JSONFetcher {
         var request = URLRequest(url: url)
         request.addValue("1", forHTTPHeaderField: "ff-coding-exercise")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            guard let data = data else { return }
+            guard let data = data else {
+                onFailure(airport)
+                return
+            }
             do {
                 let newWeather = try JSONDecoder().decode(Weather.self, from: data)
                 let newWeatherContainer: WeatherContainer = WeatherContainer(airport: airport, weather: newWeather)
                 if !self.weatherContainers.contains(newWeatherContainer) {
-                    self.saveData(newWeatherContainer: newWeatherContainer)
+                    self.saveDataFor(newWeatherContainer)
                 }
                 onSuccess(newWeatherContainer)
             } catch let err {
-                print("Unable to decode JSON", err)
                 onFailure(airport)
             }
         }.resume()
     }
     
-    func saveData(newWeatherContainer: WeatherContainer) {
+    func saveDataFor(_ newWeatherContainer: WeatherContainer) {
         self.weatherContainers.insert(newWeatherContainer, at: 0)
         self.context.insert(newWeatherContainer)
     }
@@ -57,7 +59,7 @@ public class JSONFetcher {
         }
     }
     
-    func fetchAutomatically(_ fetchAutomatically: Bool, onSuccess: @escaping (_ weatherContainer: WeatherContainer) -> ()) {
+    func setAutomaticFetching(_ fetchAutomatically: Bool, onSuccess: @escaping (_ weatherContainer: WeatherContainer) -> ()) {
         if fetchAutomatically {
             self.timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(autoFetchSeconds), repeats: true, block: { _ in
                 for weatherContainer in self.weatherContainers {

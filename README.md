@@ -1,18 +1,27 @@
 # ForeFlightWeather
 An iOS app that fetches and displays the weather report for a given airport from ForeFlight's QA server, this time with up to date SDKs!
 
-TODO: insert photo/video
+![iOS Screenshot](iOS.png)
+
+![macOS Screenshot](macOS.png)
 
 ## How long was spent on the project
+Overall: About 14 hours.
 - Started around 9am on April 25th 2024.
-- Took at break at 2pm on April 25th 2024 to run errands.
-- Resumed work at 5pm on April 25th 2024.
-- Stopped working for the day at 7pm on April 25th 2024.
-- Worked breifly at midnight on April 26th 2024.
-- Resumed work around 8:30am on April 26th 2024.
+- Took at break at 2pm on April 25th to run errands.
+- Resumed work at 5pm on April 25th.
+- Stopped working for the day at 7pm on April 25th.
+- Worked breifly at midnight on April 26th.
+- Resumed work around 8:30am on April 26th.
+- Finished around 3pm on April 26th.
 
 ## Any notable design decisions you wish to highlight
-- The JSON returned from https://qa.foreflight.com/weather/report never contained values for `weather` in my testing. Therefore, I focused the "Details View" on displaying the `text`, `dateIssued`, `lat`, `lon`, and `elevationFt` which was consistently provided.
+- This project utilizes SwiftUI and SwiftData with the latest SDKs offered publically by Apple as of April 26th 2024.
+- This app is cross compilable for macOS.
+- All requirements were met, including caching and automatic fetching.
+- I tested this app in simulator and on device in various configurations of graphical accessibility and orientation. See below for an example of many accessibility features being enabled. 
+
+![Accessibility testing](testing.png)
 
 ## Any references consulted and/or third party libraries used
 - TextField: https://developer.apple.com/documentation/swiftui/textfield
@@ -36,9 +45,15 @@ TODO: insert photo/video
 - How can I make a function execute every second in swift?: https://stackoverflow.com/questions/30090309/how-can-i-make-a-function-execute-every-second-in-swift
 
 ## Known issues
-- The "weather" array from JSON response of https://qa.foreflight.com/weather/report/ is always empty.
+- The `weather` array from JSON response of https://qa.foreflight.com/weather/report/ is always empty.
 - Auto fetching while in a "More" forecast tab forces the user to an eariler day's forecast upon update.
+- It's possible the "Airport Not Found" alert may display the incorrect airport if the user modifies the search text before the network call returns, though I never experienced this issue in my testing.
 
 ## Any other notes that will help us understand your project
-- This project is my second attempt using a 2024 Macbook Pro with iOS 17.4, Xcode 15.3, macOS 14.4, and Swift 5.10.
+- This project is my second attempt this time using up-to-date technologies consisting of a 2024 Macbook Pro with iOS 17.4, Xcode 15.3, macOS 14.4, and Swift 5.10.
+- This project covers all requirements, including caching and automatic fetching.
+- The JSON returned from https://qa.foreflight.com/weather/report never contained values for `weather` in my testing. Therefore, I focused the "Details View" on displaying the `text`, `dateIssued`, `lat`, `lon`, and `elevationFt` which was consistently provided.
 
+## Video demo
+
+![Video demo](demo.mov)

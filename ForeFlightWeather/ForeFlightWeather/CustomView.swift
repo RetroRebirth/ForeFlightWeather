@@ -24,7 +24,7 @@ public struct CustomView: View {
     @State private var fetchAutomatically = false
     @State private var weatherViewsLastUpdatedTime: String = ""
     
-    init(inputText: Binding<String>, weatherContainers: [WeatherContainer], jsonFetcher: JSONFetcher) {
+    init(inputText: Binding<String>, jsonFetcher: JSONFetcher) {
         self._inputText = inputText
         self.jsonFetcher = jsonFetcher
     }
@@ -75,7 +75,7 @@ public struct CustomView: View {
             }
             Toggle("Automatically fetch every \(jsonFetcher.autoFetchSeconds) seconds.", isOn: $fetchAutomatically)
                 .onChange(of: fetchAutomatically) {
-                    jsonFetcher.fetchAutomatically(fetchAutomatically, onSuccess: onJSONSuccess)
+                    jsonFetcher.setAutomaticFetching(fetchAutomatically, onSuccess: onJSONSuccess)
                 }
             if !weatherViews.isEmpty {
                 Text("Last Updated: \(weatherViewsLastUpdatedTime)").multilineTextAlignment(.center)
