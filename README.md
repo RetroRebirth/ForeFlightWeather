@@ -51,7 +51,6 @@ Overall: About 14 hours.
 
 ## Any other notes that will help us understand your project
 - This project is my second attempt this time using up-to-date technologies consisting of a 2024 Macbook Pro with iOS 17.4, Xcode 15.3, macOS 14.4, and Swift 5.10.
-- This project covers all requirements, including caching and automatic fetching.
 - The JSON returned from https://qa.foreflight.com/weather/report never contained values for `weather` in my testing. Therefore, I focused the "Details View" on displaying the `text`, `dateIssued`, `lat`, `lon`, and `elevationFt` which was consistently provided.
 
 ## Video demo
