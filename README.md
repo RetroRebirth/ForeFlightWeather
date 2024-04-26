@@ -56,4 +56,4 @@ Overall: About 14 hours.
 
 ## Video demo
 
-[Video demo](https://github.com/RetroRebirth/ForeFlightWeather/raw/main/demo.mov)
+https://github.com/RetroRebirth/ForeFlightWeather/raw/main/demo.mov
