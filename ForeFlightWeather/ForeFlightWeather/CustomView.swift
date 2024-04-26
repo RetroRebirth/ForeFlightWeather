@@ -17,38 +17,39 @@ struct WeatherView {
 
 public struct CustomView: View {
     @Binding var inputText: String
-    @State var dropDownList = [String]()
+    @State var weatherContainers: [WeatherContainer]
     @FocusState var filterList: Bool
     private let jsonFetcher: JSONFetcher
     @State private var showAlert = false
     @State var weatherViews: [WeatherView] = []
+    @Environment(\.modelContext) private var context
     
-    public init(inputText: Binding<String>, dropDownList: [String], jsonFetcher: JSONFetcher) {
+    init(inputText: Binding<String>, weatherContainers: [WeatherContainer], jsonFetcher: JSONFetcher) {
         self._inputText = inputText
-        self._dropDownList = State(initialValue: dropDownList)
         self.jsonFetcher = jsonFetcher
+        self._weatherContainers = State(initialValue: weatherContainers)
     }
     
     public var body: some View {
         VStack {
             Group{
                 HStack {
-                    TextField("Select an airport", text: $inputText)
+                    TextField("Search for an airport", text: $inputText)
                         .padding([.horizontal, .vertical], 15)
                         .autocorrectionDisabled()
 #if os(iOS)
                         .textInputAutocapitalization(.characters)
 #endif
                         .focused($filterList)
+                        .onAppear {
+                            if weatherContainers.isEmpty {
+                                jsonFetcher.fetchWeatherFor("KPWM", onSuccess: onJSONSuccess, onFailure: {_ in })
+                                jsonFetcher.fetchWeatherFor("KAUS", onSuccess: onJSONSuccess, onFailure: {_ in })
+                            }
+                        }
                         .onSubmit {
                             if inputText.isEmpty { return }
-                            // TODO check if cached before fetching.
-                            jsonFetcher.fetchWeatherFor(inputText.uppercased(), onSuccess: {airport, weather in
-                                if !airport.isEmpty && !dropDownList.contains(airport) {
-                                    dropDownList.insert(airport, at: 0)
-                                }
-                                updateWeatherViewsWith(weather)
-                            }, onFailure: {_ in
+                            jsonFetcher.fetchWeatherFor(inputText.uppercased(), onSuccess: onJSONSuccess, onFailure: {_ in
                                 showAlert = true
                             })
                         }
@@ -58,14 +59,12 @@ public struct CustomView: View {
                 )
             }
             List {
-                ForEach(dropDownList, id: \.self) { airport in
-                    if !filterList || inputText.isEmpty || airport.contains(inputText.uppercased()) {
-                        Text("\(airport)")
+                ForEach(weatherContainers, id: \.self) { weatherContainer in
+                    if !filterList || inputText.isEmpty || weatherContainer.airport.contains(inputText.uppercased()) {
+                        Text("\(weatherContainer.airport)")
                             .onTapGesture {
-                                inputText = "\(airport)"
-                                jsonFetcher.fetchWeatherFor(inputText.uppercased(), onSuccess: {airport, weather in
-                                    updateWeatherViewsWith(weather)
-                                }, onFailure: {airport in
+                                inputText = "\(weatherContainer.airport)"
+                                jsonFetcher.fetchWeatherFor(inputText.uppercased(), onSuccess: onJSONSuccess, onFailure: {_ in
                                     showAlert = true
                                 })
                             }
@@ -116,5 +115,13 @@ public struct CustomView: View {
                                             lon: forecast.lon,
                                             elevationFt: forecast.elevationFt))
         }
+    }
+    
+    func onJSONSuccess(_ newWeatherContainer: WeatherContainer) {
+        if !weatherContainers.contains(newWeatherContainer) {
+            weatherContainers.insert(newWeatherContainer, at: 0)
+            context.insert(newWeatherContainer)
+        }
+        updateWeatherViewsWith(newWeatherContainer.weather!)
     }
 }

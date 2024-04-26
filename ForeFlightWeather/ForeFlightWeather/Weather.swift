@@ -4,6 +4,25 @@
 //   let weather = try? JSONDecoder().decode(Weather.self, from: jsonData)
 
 import Foundation
+import SwiftData
+
+@Model
+class WeatherContainer: Hashable {
+    var airport: String
+    var weather: Weather?
+    
+    init(airport: String, weather: Weather?) {
+        self.airport = airport
+        self.weather = weather
+    }
+    
+    static func == (lhs: WeatherContainer, rhs: WeatherContainer) -> Bool {
+        return lhs.airport == rhs.airport
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(airport)
+    }
+}
 
 // MARK: - Weather
 public struct Weather: Codable {
@@ -45,7 +64,7 @@ struct CloudLayer: Codable {
 // MARK: - Remarks
 struct Remarks: Codable {
     let precipitationDiscriminator, humanObserver: Bool
-    let seaLevelPressure, temperature, dewpoint: Double
+    let temperature, dewpoint: Double
     let visibility: WeatherBeginEndsClass
     let sensoryStatus, lightning: [JSONAny]
     let weatherBeginEnds: WeatherBeginEndsClass
