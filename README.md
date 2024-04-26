@@ -28,9 +28,16 @@ TODO: insert photo/video
 - Reset iOS Simulator application data to run app for first time: https://stackoverflow.com/questions/16195859/reset-ios-simulator-application-data-to-run-app-for-first-time
 - ModelContext: https://developer.apple.com/documentation/swiftdata/modelcontext
 - Hashable: https://developer.apple.com/documentation/swift/hashable
+- Cannot use mutating member on immutable value of type: https://stackoverflow.com/questions/38764003/cannot-use-mutating-member-on-immutable-value-of-type
+- SwiftData struggles. Cannot insert 'MyClass' in this managed object context because it is not found in the associated managed object model: https://stackoverflow.com/questions/77359963/swiftdata-struggles-cannot-insert-myclass-in-this-managed-object-context-beca
+- Read-Only properties: https://stackoverflow.com/questions/41273035/read-only-properties
+- Toggle: https://developer.apple.com/documentation/swiftui/toggle
+- Get Current Date and Time in Swift 5.0: https://medium.com/@gurjindersingh663/get-current-date-and-time-in-swift-5-0-1d1bebdc1981
+- How can I make a function execute every second in swift?: https://stackoverflow.com/questions/30090309/how-can-i-make-a-function-execute-every-second-in-swift
 
 ## Known issues
-- "weather" array from JSON response of https://qa.foreflight.com/weather/report/ is always empty.
+- The "weather" array from JSON response of https://qa.foreflight.com/weather/report/ is always empty.
+- Auto fetching while in a "More" forecast tab forces the user to an eariler day's forecast upon update.
 
 ## Any other notes that will help us understand your project
 - This project is my second attempt using a 2024 Macbook Pro with iOS 17.4, Xcode 15.3, macOS 14.4, and Swift 5.10.

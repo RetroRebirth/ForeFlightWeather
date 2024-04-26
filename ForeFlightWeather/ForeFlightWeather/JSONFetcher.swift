@@ -12,6 +12,8 @@ import SwiftUI
 public class JSONFetcher {
     private(set) var weatherContainers: [WeatherContainer]
     private var context: ModelContext
+    let autoFetchSeconds: Int = 5
+    var timer = Timer()
     
     init(weatherContainers: [WeatherContainer], context: ModelContext) {
         self.weatherContainers = weatherContainers
@@ -52,6 +54,18 @@ public class JSONFetcher {
                 onSuccess(weatherContainer)
                 return
             }
+        }
+    }
+    
+    func fetchAutomatically(_ fetchAutomatically: Bool, onSuccess: @escaping (_ weatherContainer: WeatherContainer) -> ()) {
+        if fetchAutomatically {
+            self.timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(autoFetchSeconds), repeats: true, block: { _ in
+                for weatherContainer in self.weatherContainers {
+                    self.fetchWeatherFor(weatherContainer.airport, onSuccess: onSuccess, onFailure: {_ in })
+                }
+            })
+        } else {
+            timer.invalidate()
         }
     }
 }

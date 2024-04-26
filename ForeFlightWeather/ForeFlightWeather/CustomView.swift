@@ -21,6 +21,8 @@ public struct CustomView: View {
     private var jsonFetcher: JSONFetcher
     @State private var showAlert = false
     @State var weatherViews: [WeatherView] = []
+    @State private var fetchAutomatically = false
+    @State private var weatherViewsLastUpdatedTime: String = ""
     
     init(inputText: Binding<String>, weatherContainers: [WeatherContainer], jsonFetcher: JSONFetcher) {
         self._inputText = inputText
@@ -50,6 +52,9 @@ public struct CustomView: View {
                                 showAlert = true
                             })
                         }
+                        .onChange(of: inputText) {
+                            checkInputTextValidAirport()
+                        }
                 } .overlay(
                     RoundedRectangle(cornerRadius: 5)
                         .stroke(lineWidth: 0.5)
@@ -68,7 +73,12 @@ public struct CustomView: View {
                     }
                 }
             }
+            Toggle("Automatically fetch every \(jsonFetcher.autoFetchSeconds) seconds.", isOn: $fetchAutomatically)
+                .onChange(of: fetchAutomatically) {
+                    jsonFetcher.fetchAutomatically(fetchAutomatically, onSuccess: onJSONSuccess)
+                }
             if !weatherViews.isEmpty {
+                Text("Last Updated: \(weatherViewsLastUpdatedTime)").multilineTextAlignment(.center)
                 TabView {
                     ForEach(0..<weatherViews.count, id: \.self) { index in
                         List {
@@ -112,10 +122,29 @@ public struct CustomView: View {
                                             lon: forecast.lon,
                                             elevationFt: forecast.elevationFt))
         }
+        weatherViewsLastUpdatedTime = getCurrentDisplayTime()
     }
     
     func onJSONSuccess(_ newWeatherContainer: WeatherContainer) {
-        let weather: Weather = newWeatherContainer.weather
-        updateWeatherViewsWith(weather)
+        if newWeatherContainer.airport == inputText.uppercased() {
+            updateWeatherViewsWith(newWeatherContainer.weather)
+        }
+    }
+    
+    func getCurrentDisplayTime() -> String {
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd hh:mm:ss a"
+        let result = formatter.string(from: date)
+        return result
+    }
+    
+    func checkInputTextValidAirport() {
+        for weatherContainer in jsonFetcher.weatherContainers {
+            if inputText.uppercased() == weatherContainer.airport {
+                return
+            }
+        }
+        weatherViews = []
     }
 }
