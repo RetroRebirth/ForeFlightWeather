@@ -22,14 +22,16 @@ public class JSONFetcher {
     
     func fetchWeatherFor(_ airport: String, onSuccess: @escaping (_ weatherContainer: WeatherContainer) -> (), onFailure: @escaping (_ airport: String) -> ()) {
         
-        checkCacheFor(airport, onSuccess: onSuccess)
+        let inCache = checkCacheFor(airport, onSuccess: onSuccess)
         
         guard let url = URL(string: "https://qa.foreflight.com/weather/report/\(airport)") else { return }
         var request = URLRequest(url: url)
         request.addValue("1", forHTTPHeaderField: "ff-coding-exercise")
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else {
-                onFailure(airport)
+                if !inCache {
+                    onFailure(airport)
+                }
                 return
             }
             do {
@@ -40,7 +42,9 @@ public class JSONFetcher {
                 }
                 onSuccess(newWeatherContainer)
             } catch {
-                onFailure(airport)
+                if !inCache {
+                    onFailure(airport)
+                }
             }
         }.resume()
     }
@@ -50,13 +54,14 @@ public class JSONFetcher {
         self.context.insert(newWeatherContainer)
     }
     
-    func checkCacheFor(_ airport: String, onSuccess: @escaping (_ weatherContainer: WeatherContainer) -> ()) {
+    func checkCacheFor(_ airport: String, onSuccess: @escaping (_ weatherContainer: WeatherContainer) -> ()) -> Bool {
         for weatherContainer in weatherContainers {
             if weatherContainer.airport == airport {
                 onSuccess(weatherContainer)
-                return
+                return true
             }
         }
+        return false
     }
     
     func setAutomaticFetching(_ fetchAutomatically: Bool, onSuccess: @escaping (_ weatherContainer: WeatherContainer) -> ()) {
