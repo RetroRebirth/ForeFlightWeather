@@ -14,6 +14,7 @@ Overall: About 14 hours.
 - Worked breifly at midnight on April 26th.
 - Resumed work around 8:30am on April 26th.
 - Finished around 3pm on April 26th.
+- Found and resolved bug on April 28th.
 
 ## Any notable design decisions you wish to highlight
 - This project utilizes SwiftUI and SwiftData with the latest SDKs offered publically by Apple as of April 26th 2024.
