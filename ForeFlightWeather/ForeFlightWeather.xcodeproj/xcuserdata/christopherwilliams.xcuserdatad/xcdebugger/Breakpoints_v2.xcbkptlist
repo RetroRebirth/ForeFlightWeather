@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A9A920B9-7C42-43D1-A830-CCAFE578051D"
+            uuid = "CB2FDE50-53D9-4CFD-8038-1898EEA80278"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ForeFlightWeather/JSONFetcher.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "fetchWeatherFor(_:onSuccess:onFailure:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -57,7 +57,7 @@ struct Conditions: Codable, Hashable {
     let dateIssued: String
     let lat, lon: Double
     let elevationFt: Int
-    let tempC, dewpointC, pressureHg, pressureHpa: Double
+    let tempC, dewpointC, pressureHg, pressureHpa: Double?
     let flightRules: String
     let wind: Wind
     

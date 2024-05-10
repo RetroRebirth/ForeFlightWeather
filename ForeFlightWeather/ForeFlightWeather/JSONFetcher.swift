@@ -46,7 +46,7 @@ public class JSONFetcher {
                 return
             }
             do {
-                data.printJSON()
+//                data.printJSON()
                 let newWeather = try JSONDecoder().decode(Weather.self, from: data)
                 let newWeatherContainer: WeatherContainer = WeatherContainer(airport: airport, weather: newWeather)
                 if !self.weatherContainers.contains(newWeatherContainer) {
