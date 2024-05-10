@@ -9,6 +9,17 @@ import Foundation
 import SwiftData
 import SwiftUI
 
+extension Data
+{
+    func printJSON()
+    {
+        if let JSONString = String(data: self, encoding: String.Encoding.utf8)
+        {
+            print(JSONString)
+        }
+    }
+}
+
 public class JSONFetcher {
     private(set) var weatherContainers: [WeatherContainer]
     private var context: ModelContext
@@ -35,6 +46,7 @@ public class JSONFetcher {
                 return
             }
             do {
+                data.printJSON()
                 let newWeather = try JSONDecoder().decode(Weather.self, from: data)
                 let newWeatherContainer: WeatherContainer = WeatherContainer(airport: airport, weather: newWeather)
                 if !self.weatherContainers.contains(newWeatherContainer) {

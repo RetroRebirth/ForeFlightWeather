@@ -13,6 +13,13 @@ struct WeatherView {
     @State var lat: Double
     @State var lon: Double
     @State var elevationFt: Int
+    @State var tempC: Double
+    @State var dewpointC: Double
+    @State var pressureHg: Double
+    @State var pressureHpa: Double
+    @State var flightRules: String
+    @State var speedKts: Double
+    @State var variable: Bool
 }
 
 public struct CustomView: View {
@@ -87,6 +94,13 @@ public struct CustomView: View {
                             Text("Latitude: \(weatherViews[index].lat)")
                             Text("Longitude: \(weatherViews[index].lon)")
                             Text("Elevation Feet: \(weatherViews[index].elevationFt)")
+                            Text("Temp (C): \(weatherViews[index].tempC)")
+                            Text("Dewpoint (C): \(weatherViews[index].dewpointC)")
+                            Text("Pressure (Hg): \(weatherViews[index].pressureHg)")
+                            Text("Pressure (Hpa): \(weatherViews[index].pressureHpa)")
+                            Text("Flight Rules: \(weatherViews[index].flightRules)")
+                            Text("Wind Speed (kts): \(weatherViews[index].speedKts)")
+                            Text("Wind Variable: \(weatherViews[index].variable)")
                         }
                         .tabItem {
                             if index > 1 {
@@ -114,13 +128,27 @@ public struct CustomView: View {
                                     dateIssued: weather.report.conditions.dateIssued,
                                     lat: weather.report.conditions.lat,
                                     lon: weather.report.conditions.lon,
-                                    elevationFt: weather.report.conditions.elevationFt)]
+                                    elevationFt: weather.report.conditions.elevationFt,
+                                    tempC: weather.report.conditions.tempC,
+                                    dewpointC: weather.report.conditions.dewpointC,
+                                    pressureHg: weather.report.conditions.pressureHg,
+                                    pressureHpa: weather.report.conditions.pressureHpa,
+                                    flightRules: weather.report.conditions.flightRules,
+                                    speedKts: weather.report.conditions.wind.speedKts,
+                                    variable: weather.report.conditions.wind.variable)]
         for forecast in weather.report.forecast.conditions {
             weatherViews.append(WeatherView(text: forecast.text,
                                             dateIssued: forecast.dateIssued,
                                             lat: forecast.lat,
                                             lon: forecast.lon,
-                                            elevationFt: forecast.elevationFt))
+                                            elevationFt: forecast.elevationFt,
+                                            tempC: forecast.tempC,
+                                            dewpointC: forecast.dewpointC,
+                                            pressureHg: forecast.pressureHg,
+                                            pressureHpa: forecast.pressureHpa,
+                                            flightRules: forecast.flightRules,
+                                            speedKts: forecast.wind.speedKts,
+                                            variable: forecast.wind.variable))
         }
         weatherViewsLastUpdatedTime = getCurrentDisplayTime()
     }

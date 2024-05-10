@@ -57,6 +57,9 @@ struct Conditions: Codable, Hashable {
     let dateIssued: String
     let lat, lon: Double
     let elevationFt: Int
+    let tempC, dewpointC, pressureHg, pressureHpa: Double
+    let flightRules: String
+    let wind: Wind
     
     public static func == (lhs: Conditions, rhs: Conditions) -> Bool {
         return lhs.text == rhs.text && lhs.dateIssued == rhs.dateIssued && lhs.lat == rhs.lat && lhs.lon == rhs.lon && lhs.elevationFt == rhs.elevationFt
@@ -80,4 +83,12 @@ struct ReportForecast: Codable, Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(conditions)
     }
+}
+
+// MARK: - Wind
+struct Wind: Codable, Hashable {
+    let speedKts: Double
+    let direction, from: Int?
+    let variable: Bool
+    let gustSpeedKts: Int?
 }
